@@ -1,0 +1,28 @@
+{
+	"name": "task-server",
+	"version": "1.0.0",
+	"description": "Simple restful api for task managing",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node index.js",
+		"dev": "nodemon index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SamiOmran/JH-Task.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/SamiOmran/JH-Task/issues"
+	},
+	"homepage": "https://github.com/SamiOmran/JH-Task#readme",
+	"dependencies": {
+		"cors": "^2.8.6",
+		"dotenv": "^17.4.2",
+		"express": "^5.2.1",
+		"mongoose": "^9.5.0",
+		"nodemon": "^3.1.14"
+	}
+}
