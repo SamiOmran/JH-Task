@@ -30,7 +30,7 @@ export function createTaskValidationRules() {
 	return validate(rules);
 }
 
-export async function updateTaskValidationRules() {
+export function updateTaskValidationRules() {
 	const rules = [
 		body('title')
 			.optional()
@@ -52,5 +52,5 @@ export async function updateTaskValidationRules() {
 			.withMessage('AssignedTo must be a valid UUID'),
 	];
 
-	return await validate(rules);
+	return validate(rules);
 }

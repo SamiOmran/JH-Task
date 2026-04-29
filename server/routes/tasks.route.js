@@ -11,17 +11,25 @@ import {
 
 const router = express.Router();
 
-router.use(authenticate);
+// router.use(authenticate);
 
 router.get('/', controller.listTasks);
 
 router.post('/', createTaskValidationRules(), controller.createTask);
 
-router.use(checkEntityExists({ model: Task }));
-router.get('/:id', controller.getTaskById);
+router.get('/:id', checkEntityExists({ model: Task }), controller.getTaskById);
 
-router.put('/:id', updateTaskValidationRules, controller.updateTask);
+router.put(
+	'/:id',
+	checkEntityExists({ model: Task }),
+	updateTaskValidationRules(),
+	controller.updateTask,
+);
 
-router.delete('/:id', controller.deleteTask);
+router.delete(
+	'/:id',
+	checkEntityExists({ model: Task }),
+	controller.deleteTask,
+);
 
 export default router;

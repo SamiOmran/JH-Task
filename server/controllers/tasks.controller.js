@@ -2,8 +2,8 @@ import * as tasksService from '../services/tasks.service.js';
 import { successResponse } from '../response_handler/index.js';
 import { HTTP_STATUS } from '../utils/constants.js';
 
-export async function listTasks(req, res) {
-	const tasks = await tasksService.list(req.user._id);
+export const listTasks = async (req, res) => {
+	const tasks = await tasksService.list();
 
 	return successResponse(
 		res,
@@ -11,9 +11,9 @@ export async function listTasks(req, res) {
 		HTTP_STATUS.OK,
 		'Tasks retrieved successfully',
 	);
-}
+};
 
-export function getTaskById(req, res) {
+export const getTaskById = (req, res) => {
 	const task = req.entity;
 
 	return successResponse(
@@ -22,23 +22,23 @@ export function getTaskById(req, res) {
 		HTTP_STATUS.OK,
 		'Task retrieved successfully',
 	);
-}
+};
 
-export async function createTask(req, res) {
-	const taskData = { ...req.body, assignedTo: req.user._id };
+export const createTask = async (req, res) => {
+	const taskData = { ...req.body };
 	const task = await tasksService.create(taskData);
-	console.log('Created task:', task);
+
 	return successResponse(
 		res,
 		task,
 		HTTP_STATUS.CREATED,
 		'Task created successfully',
 	);
-}
+};
 
-export async function updateTask(req, res) {
+export const updateTask = async (req, res) => {
 	const task = req.entity;
-	const updatedTask = await tasksService.update(req.params.id, task, req.body);
+	const updatedTask = await tasksService.update(task, req.body);
 
 	return successResponse(
 		res,
@@ -46,12 +46,11 @@ export async function updateTask(req, res) {
 		HTTP_STATUS.OK,
 		'Task updated successfully',
 	);
-}
+};
 
-export async function deleteTask(req, res) {
-	console.log('Deleting task with ID:', req.params.id);
+export const deleteTask = async (req, res) => {
 	const task = req.entity;
-	await tasksService.deleteTask(req.params.id, task);
+	await tasksService.deleteTask(task);
 
 	return successResponse(
 		res,
@@ -59,4 +58,4 @@ export async function deleteTask(req, res) {
 		HTTP_STATUS.OK,
 		'Task deleted successfully',
 	);
-}
+};

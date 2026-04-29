@@ -5,7 +5,6 @@ export function checkEntityExists({ model, param = 'id' }) {
 	return async (req, res, next) => {
 		try {
 			const value = req.params[param];
-			console.log(`req ${req.url}`);
 			if (!value) {
 				return errorResponse(
 					new Error('Missing required parameter'),
