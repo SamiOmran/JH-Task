@@ -54,7 +54,7 @@ cp .env.example .en
 Run:
 
 ```bash
-npm run server
+npm run dev
 ```
 
 Backend will run on:
@@ -72,7 +72,7 @@ Open another terminal and run:
 ```bash
 cd client
 npm install
-npm run server
+npm run dev
 ```
 
 Frontend will run on:
