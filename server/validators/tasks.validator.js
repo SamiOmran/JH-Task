@@ -24,8 +24,8 @@ export function createTaskValidationRules() {
 		body('assignedTo')
 			.exists()
 			.withMessage('AssignedTo is required')
-			.isMongoId()
-			.withMessage('AssignedTo must be a valid MongoDB ID'),
+			.isUUID()
+			.withMessage('AssignedTo must be a valid UUID'),
 	];
 
 	return validate(rules);
@@ -49,8 +49,8 @@ export async function updateTaskValidationRules() {
 			.withMessage('Status must be one of: pending, in_progress, completed'),
 		body('assignedTo')
 			.optional()
-			.isMongoId()
-			.withMessage('AssignedTo must be a valid MongoDB ID'),
+			.isUUID()
+			.withMessage('AssignedTo must be a valid UUID'),
 	];
 
 	return await validate(rules);

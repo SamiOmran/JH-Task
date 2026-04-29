@@ -1,6 +1,6 @@
 import { HTTP_STATUS } from '../utils/constants.js';
 
-export function successResponse(
+export default function successResponse(
 	res,
 	data,
 	statusCode = HTTP_STATUS.OK,

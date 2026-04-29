@@ -1,15 +1,47 @@
-export function getUserById(req, res) {
-	res.send('Get user by ID');
-}
+import { successResponse, errorResponse } from '../response_handler/index.js';
+import { HTTP_STATUS } from '../utils/constants.js';
+import * as usersService from '../services/users.service.js';
 
-export function createUser(req, res) {
-	res.send('Create a new user');
-}
+export const getUserById = async (req, res) => {
+	const { id } = req.params;
+	const user = await usersService.getUserById(id);
 
-export function updateUser(req, res) {
-	res.send('Update user by ID');
-}
+	return successResponse(res, user, HTTP_STATUS.OK, 'User found successfully');
+};
 
-export function deleteUser(req, res) {
-	res.send('Delete user by ID');
-}
+export const signUp = async (req, res) => {
+	const { email, password, firstName, lastName } = req.body;
+	const newUser = await usersService.createUser({
+		email,
+		password,
+		firstName,
+		lastName,
+	});
+
+	return successResponse(
+		res,
+		newUser,
+		HTTP_STATUS.CREATED,
+		'User created successfully',
+	);
+};
+
+export const login = async (req, res) => {
+	const { email, password } = req.body;
+	const user = await usersService.login({ email, password });
+
+	if (!user) {
+		return errorResponse(
+			res,
+			null,
+			HTTP_STATUS.UNAUTHORIZED,
+			'Invalid email or password',
+		);
+	}
+	return successResponse(
+		res,
+		user,
+		HTTP_STATUS.OK,
+		'User logged in successfully',
+	);
+};

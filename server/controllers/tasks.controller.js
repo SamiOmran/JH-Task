@@ -1,10 +1,10 @@
 import * as tasksService from '../services/tasks.service.js';
-import { successResponse } from '../response_handler/success.js';
+import { successResponse } from '../response_handler/index.js';
 import { HTTP_STATUS } from '../utils/constants.js';
 
 export async function listTasks(req, res) {
 	const tasks = await tasksService.list();
-	console.log('Tasks retrieved:', tasks);
+
 	return successResponse(
 		res,
 		tasks,

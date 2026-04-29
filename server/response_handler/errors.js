@@ -1,13 +1,10 @@
 import { HTTP_STATUS } from '../utils/constants.js';
 
-export const errorHandler = (
+export default function errorResponse(
 	err,
-	req,
 	res,
-	next,
 	msg,
 	statusCode = HTTP_STATUS.INTERNAL_SERVER_ERROR,
-) => {
-	console.error(err.stack);
-	res.status(statusCode).json({ message: msg || err.message });
-};
+) {
+	res.status(statusCode).json({ success: false, message: msg || err.message });
+}

@@ -1,17 +1,15 @@
-import { errorHandler } from '../response_handler/errors.js';
+import { errorResponse } from '../response_handler/index.js';
 import { HTTP_STATUS } from '../utils/constants.js';
 
-export const checkEntityExists = ({ model, param = 'id' }) => {
+export function checkEntityExists({ model, param = 'id' }) {
 	return async (req, res, next) => {
 		try {
 			const value = req.params[param];
 
 			if (!value) {
-				return errorHandler(
+				return errorResponse(
 					new Error('Missing required parameter'),
-					req,
 					res,
-					next,
 					'Missing required parameter',
 					HTTP_STATUS.BAD_REQUEST,
 				);
@@ -20,11 +18,9 @@ export const checkEntityExists = ({ model, param = 'id' }) => {
 			const entity = await model.findById(value);
 
 			if (!entity) {
-				return errorHandler(
+				return errorResponse(
 					new Error('Resource not found'),
-					req,
 					res,
-					next,
 					'Resource not found',
 					HTTP_STATUS.NOT_FOUND,
 				);
@@ -35,4 +31,4 @@ export const checkEntityExists = ({ model, param = 'id' }) => {
 			next(error);
 		}
 	};
-};
+}

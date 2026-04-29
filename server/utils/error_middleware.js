@@ -1,7 +1,7 @@
 import { validationResult } from 'express-validator';
 
 import { HTTP_STATUS } from './constants.js';
-import { errorHandler } from '../response_handler/errors.js';
+import { errorResponse } from '../response_handler/index.js';
 
 export default function validate(rules) {
 	return [
@@ -9,12 +9,16 @@ export default function validate(rules) {
 
 		(req, res, next) => {
 			const errors = validationResult(req);
-			
 			if (!errors.isEmpty()) {
-				return res.status(400).json({
-					message: 'Validation failed',
-					errors: errors.array(),
-				});
+				return errorResponse(
+					new Error('Validation failed'),
+					res,
+					errors
+						.array()
+						.map((err) => err.msg)
+						.join(', '),
+					HTTP_STATUS.BAD_REQUEST,
+				);
 			}
 
 			next();
