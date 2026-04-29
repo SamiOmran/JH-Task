@@ -27,38 +27,34 @@ Make sure you have installed:
 
 - Node.js
 - npm
-- make
 
 ---
 
 # How To Run The Application
 
-## 1. Install Dependencies
+## Backend
 
-Run:
+Steps:
 
 ```bash
-make install
+cd server
+npm install
 ```
 
----
-
-## 2. Create .env file
+### Create .env file
 
 Run:
 
 ```bash
-make env
+cp .env.example .en
 ```
 
----
-
-## 2. Start Backend Server
+### Start Backend Server
 
 Run:
 
 ```bash
-make server
+npm run server
 ```
 
 Backend will run on:
@@ -69,12 +65,14 @@ http://localhost:5000
 
 ---
 
-## 3. Start Frontend Client
+## Frontend
 
 Open another terminal and run:
 
 ```bash
-make client
+cd client
+npm install
+npm run server
 ```
 
 Frontend will run on:
@@ -82,17 +80,6 @@ Frontend will run on:
 ```text
 http://localhost:5173
 ```
-
----
-
-# Available Make Commands
-
-| Command        | Description                               |
-| -------------- | ----------------------------------------- |
-| `make install` | Install frontend and backend dependencies |
-| `make server`  | Run backend server                        |
-| `make client`  | Run frontend client                       |
-| `make env`     | Create .env file                          |
 
 ---
 
