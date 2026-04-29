@@ -1,9 +1,19 @@
-import task from "../models/task"
+import Task from '../models/task.js';
 
-export const list = () => {
-    return task.find();
-}
+export const list = async () => {
+	return await Task.find();
+};
 
-export const getById = (id) => {
-    return task.findById(id);
-}
+export const create = async (taskData) => {
+	const task = new Task(taskData);
+	return await task.save();
+};
+
+export const update = async (id, task, taskData) => {
+	task.update(taskData);
+	return await task.save();
+};
+
+export const deleteTask = async (id, task) => {
+	return await task.remove();
+};

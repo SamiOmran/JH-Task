@@ -1,19 +1,60 @@
-export function listTasks(req, res, ) {
-	res.send('List all tasks');
+import * as tasksService from '../services/tasks.service.js';
+import { successResponse } from '../response_handler/success.js';
+import { HTTP_STATUS } from '../utils/constants.js';
+
+export async function listTasks(req, res) {
+	const tasks = await tasksService.list();
+	console.log('Tasks retrieved:', tasks);
+	return successResponse(
+		res,
+		tasks,
+		HTTP_STATUS.OK,
+		'Tasks retrieved successfully',
+	);
 }
 
 export function getTaskById(req, res) {
-	res.send('Get task by ID');
+	const task = req.entity;
+
+	return successResponse(
+		res,
+		task,
+		HTTP_STATUS.OK,
+		'Task retrieved successfully',
+	);
 }
 
-export function createTask(req, res) {
-	res.send('Create a new task');
+export async function createTask(req, res) {
+	const task = await tasksService.create(req.body);
+
+	return successResponse(
+		res,
+		task,
+		HTTP_STATUS.CREATED,
+		'Task created successfully',
+	);
 }
 
-export function updateTask(req, res) {
-	res.send('Update task by ID');
+export async function updateTask(req, res) {
+	const task = req.entity;
+	const updatedTask = await tasksService.update(req.params.id, task, req.body);
+
+	return successResponse(
+		res,
+		updatedTask,
+		HTTP_STATUS.OK,
+		'Task updated successfully',
+	);
 }
 
-export function deleteTask(req, res) {
-	res.send('Delete task by ID');
+export async function deleteTask(req, res) {
+	const task = req.entity;
+	await tasksService.deleteTask(req.params.id, task);
+
+	return successResponse(
+		res,
+		null,
+		HTTP_STATUS.OK,
+		'Task deleted successfully',
+	);
 }

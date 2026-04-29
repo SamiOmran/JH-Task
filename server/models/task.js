@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { TaskStatus } = require('./enum');
+import mongoose from 'mongoose';
+import { TaskStatus, TaskStatusValues } from './enum.js';
 
 const taskSchema = new mongoose.Schema(
 	{
@@ -13,7 +13,7 @@ const taskSchema = new mongoose.Schema(
 		},
 		status: {
 			type: String,
-			enum: TaskStatus.values(),
+			enum: TaskStatusValues,
 			default: TaskStatus.PENDING,
 		},
 		assignedTo: {
@@ -24,4 +24,5 @@ const taskSchema = new mongoose.Schema(
 	{ timestamps: true },
 );
 
-export default Task = mongoose.model('Task', taskSchema);
+const Task = mongoose.model('Task', taskSchema);
+export default Task;
