@@ -1,6 +1,6 @@
 import Task from '../models/task.js';
 
-export const list = async () => {
+export const list = async (userId) => {
 	return await Task.find();
 };
 
@@ -9,11 +9,11 @@ export const create = async (taskData) => {
 	return await task.save();
 };
 
-export const update = async (id, task, taskData) => {
+export const update = async (task, taskData) => {
 	task.update(taskData);
 	return await task.save();
 };
 
-export const deleteTask = async (id, task) => {
+export const deleteTask = async (task) => {
 	return await task.remove();
 };

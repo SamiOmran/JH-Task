@@ -3,7 +3,7 @@ import { successResponse } from '../response_handler/index.js';
 import { HTTP_STATUS } from '../utils/constants.js';
 
 export async function listTasks(req, res) {
-	const tasks = await tasksService.list();
+	const tasks = await tasksService.list(req.user._id);
 
 	return successResponse(
 		res,
@@ -25,8 +25,9 @@ export function getTaskById(req, res) {
 }
 
 export async function createTask(req, res) {
-	const task = await tasksService.create(req.body);
-
+	const taskData = { ...req.body, assignedTo: req.user._id };
+	const task = await tasksService.create(taskData);
+	console.log('Created task:', task);
 	return successResponse(
 		res,
 		task,
@@ -48,6 +49,7 @@ export async function updateTask(req, res) {
 }
 
 export async function deleteTask(req, res) {
+	console.log('Deleting task with ID:', req.params.id);
 	const task = req.entity;
 	await tasksService.deleteTask(req.params.id, task);
 

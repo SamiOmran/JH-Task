@@ -22,8 +22,7 @@ export function createTaskValidationRules() {
 			.withMessage('Status must be one of: pending, in_progress, completed'),
 
 		body('assignedTo')
-			.exists()
-			.withMessage('AssignedTo is required')
+			.optional()
 			.isUUID()
 			.withMessage('AssignedTo must be a valid UUID'),
 	];

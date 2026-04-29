@@ -18,7 +18,7 @@ const taskSchema = new mongoose.Schema(
 		},
 		assignedTo: {
 			type: mongoose.Schema.Types.UUID,
-			required: true,
+			required: false,
 		},
 	},
 	{ timestamps: true },
